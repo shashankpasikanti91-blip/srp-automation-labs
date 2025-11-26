@@ -3,83 +3,84 @@ AI-Powered Automation & Workflow Engineering
 👋 About Me
 
 I am an Automation Workflow Developer specializing in n8n, Apify, APIs, and WhatsApp Business automation.
-My background in IT recruitment + automation gives me a strong understanding of real business problems and how to automate processes efficiently.
 
-At SRP Automation Labs, I focus on building no-code + AI powered workflows that reduce manual work, improve accuracy, and save time for businesses.
+With a background in IT recruitment + process automation, I understand real business bottlenecks and build no-code + AI workflows that reduce manual work, improve accuracy, and save time.
+
+At SRP Automation Labs, I design automation systems that are scalable, efficient, and business-ready.
 
 🔧 Skills
 
 n8n Workflow Automation
 
-Apify Actors (Web Scraping + Map Execution)
+Apify Actors (Web Scraping & Map Execution)
 
 WhatsApp Cloud API Automation
 
 Google Sheets Automation
 
-API Integrations (REST, Webhooks, JSON)
+REST API Integrations (Webhooks, JSON)
 
-Email Automation (Gmail API)
+Gmail API Email Automation
 
 Selenium with Java (Automation Testing)
 
-AI Agents + Automation Pipelines
+AI Agents & Automation Pipelines
 
 📌 Projects
 🔹 1. Apify → Google Sheets Data Pipeline
 
-Used Apify Actor (Map Execution)
+Built Apify Actor using Map Execution
 
-Automated workflow with n8n
+Automated pipeline using n8n
 
-Cleaned and transformed data
+Cleaned & transformed extracted data
 
-Stored results into Google Sheets
-Tools: n8n, Apify, Google Sheets
+Automated Google Sheets data insertion
+Tools: n8n • Apify • Google Sheets
 
 🔹 2. WhatsApp Auto-Reply Bot
 
-Connected WhatsApp Cloud API
+Integrated WhatsApp Cloud API
 
-Automated responses based on message text
+Automated intelligent message replies
 
-Logged conversations to Google Sheets
-Tools: n8n, WhatsApp Business Cloud API
+Logged all chats into Google Sheets
+Tools: n8n • WhatsApp Cloud API
 
 🔹 3. Daily Email Reporting Bot
 
-Pulled data from Google Sheets
+Pulled data automatically from Sheets
 
-Generated formatted summary
+Generated formatted daily summaries
 
-Sent daily report to Gmail inbox
-Tools: Scheduler, n8n, Gmail API
+Sent reports to Gmail inbox
+Tools: n8n • Gmail API
 
 🔹 4. LinkedIn Lead Capture Automation
 
 Captured leads using Webhooks
 
-Added leads to Google Sheets
+Stored into Google Sheets
 
-Triggered automated follow-up emails
-Tools: n8n, LinkedIn Forms, Email API
+Triggered automatic follow-up emails
+Tools: n8n • LinkedIn Forms • Email API
 
 🔹 5. Recruitment Workflow Automation
 
 Scraped job postings via Apify
 
-Filtered data using n8n
+Filtered roles using n8n
 
-Sent curated roles to email or sheet
-Tools: Apify, n8n
+Sent curated jobs to email/sheets
+Tools: Apify • n8n
 
-🧩 Services (SRP Automation Labs)
+🧩 Services — SRP Automation Labs
 
 We help businesses automate:
 
 WhatsApp Business workflows
 
-Lead generation & follow-up
+Lead generation & nurturing
 
 Data extraction (scraping)
 
@@ -91,17 +92,16 @@ Email & notification workflows
 
 Reporting dashboards
 
-Recruitment automation
+Recruitment automation systems
 
 🌐 Tech Stack
-n8n • Apify • WhatsApp Cloud API • Google APIs 
-REST APIs • Webhooks • JSON • Selenium (Java) 
+n8n • Apify • WhatsApp Cloud API • Google APIs  
+REST APIs • Webhooks • JSON • Selenium (Java)  
 AI Agents • No-Code Automation
-
 
 📫 Contact
 
-LinkedIn: https://www.linkedin.com/in/sashyank-p-9785a9303?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BVGenjPMVQGC1dRL%2FKYwxZg%3D%3D
+LinkedIn: https://www.linkedin.com/in/sashyank-p-9785a9303
 
 GitHub: shashankpasikant91-blip
 
