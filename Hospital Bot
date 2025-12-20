@@ -1,0 +1,189 @@
+{
+  "name": "Hospital Telegram Bot (Fixed)",
+  "nodes": [
+    {
+      "id": "telegram_trigger",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [-600, 0],
+      "parameters": {
+        "updates": ["message"]
+      },
+      "credentials": {
+        "telegramApi": {
+          "name": "HSP bot",
+          "id": "REPLACE_ME"
+        }
+      }
+    },
+    {
+      "id": "code_state",
+      "name": "Normalize + State",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-400, 0],
+      "parameters": {
+        "language": "javascript",
+        "code": "const text = $json.message?.text || \"\";\nconst userId = $json.message?.from?.id || \"\";\n\nreturn [\n  {\n    json: {\n      text: text.toLowerCase(),\n      userId,\n      step: $json.step || \"intent\"\n    }\n  }\n];"
+      }
+    },
+    {
+      "id": "if_step",
+      "name": "IF Collect Details",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [-200, 0],
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.step === \"collect_details\" }}",
+              "operation": "isTrue"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "confirm_msg",
+      "name": "Confirm Appointment",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [0, -120],
+      "parameters": {
+        "chatId": "={{ $json.userId }}",
+        "text": "Thank you.\nYour appointment request has been received.\nOur team will contact you shortly."
+      },
+      "credentials": {
+        "telegramApi": {
+          "name": "HSP bot",
+          "id": "REPLACE_ME"
+        }
+      }
+    },
+    {
+      "id": "switch_intent",
+      "name": "Switch Intent",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [0, 120],
+      "parameters": {
+        "value1": "={{ $json.text }}",
+        "rules": {
+          "rules": [
+            { "operation": "contains", "value2": "doctor" },
+            { "operation": "contains", "value2": "timing" },
+            { "operation": "contains", "value2": "ortho" },
+            { "operation": "contains", "value2": "orthopedic" },
+            { "operation": "contains", "value2": "lab" },
+            { "operation": "contains", "value2": "x-ray" },
+            { "operation": "contains", "value2": "appointment" },
+            { "operation": "contains", "value2": "book" },
+            { "operation": "contains", "value2": "register" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "set_collect",
+      "name": "Set Collect Details",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [200, 120],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "name": "step",
+              "value": "collect_details",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ask_details",
+      "name": "Ask Appointment Details",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [400, 120],
+      "parameters": {
+        "chatId": "={{ $json.userId }}",
+        "text": "To book a doctor appointment,\nplease provide:\n\nName:\nAge:\nProblem:"
+      },
+      "credentials": {
+        "telegramApi": {
+          "name": "HSP bot",
+          "id": "REPLACE_ME"
+        }
+      }
+    },
+    {
+      "id": "ai_agent",
+      "name": "Hospital AI",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [200, 300],
+      "parameters": {
+        "promptType": "define",
+        "text": "User message:\n{{ $json.text }}\n\nProvide hospital information only from documents.\nIf unavailable say: Information not available.",
+        "options": {
+          "systemMessage": "You are a hospital assistant. Be short, polite, structured."
+        }
+      }
+    },
+    {
+      "id": "send_ai",
+      "name": "Send AI Reply",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [400, 300],
+      "parameters": {
+        "chatId": "={{ $json.userId }}",
+        "text": "={{ $json.output }}"
+      },
+      "credentials": {
+        "telegramApi": {
+          "name": "HSP bot",
+          "id": "REPLACE_ME"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [[{ "node": "Normalize + State", "type": "main", "index": 0 }]]
+    },
+    "Normalize + State": {
+      "main": [[{ "node": "IF Collect Details", "type": "main", "index": 0 }]]
+    },
+    "IF Collect Details": {
+      "main": [
+        [{ "node": "Confirm Appointment", "type": "main", "index": 0 }],
+        [{ "node": "Switch Intent", "type": "main", "index": 0 }]
+      ]
+    },
+    "Switch Intent": {
+      "main": [
+        [{ "node": "Hospital AI", "type": "main", "index": 0 }],
+        [{ "node": "Hospital AI", "type": "main", "index": 0 }],
+        [{ "node": "Hospital AI", "type": "main", "index": 0 }],
+        [{ "node": "Hospital AI", "type": "main", "index": 0 }],
+        [{ "node": "Hospital AI", "type": "main", "index": 0 }],
+        [{ "node": "Hospital AI", "type": "main", "index": 0 }],
+        [{ "node": "Set Collect Details", "type": "main", "index": 0 }],
+        [{ "node": "Set Collect Details", "type": "main", "index": 0 }],
+        [{ "node": "Set Collect Details", "type": "main", "index": 0 }]
+      ]
+    },
+    "Set Collect Details": {
+      "main": [[{ "node": "Ask Appointment Details", "type": "main", "index": 0 }]]
+    },
+    "Hospital AI": {
+      "main": [[{ "node": "Send AI Reply", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false
+}
